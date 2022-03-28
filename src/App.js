@@ -1,8 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 // eslint-disable-next-line no-unused-vars
-import React from 'react';
-import UserComponent from './userComponent';
+import React from "react";
+import UserComponent from "./userComponent";
 
 function App() {
   return (
@@ -12,8 +12,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        
-     
+
         <UserComponent></UserComponent>
       </header>
     </div>
