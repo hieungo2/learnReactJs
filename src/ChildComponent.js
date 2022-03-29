@@ -1,47 +1,64 @@
 import React from "react";
 // import React, { Component } from 'react';
 
+// const ChildComponent = (props) => {
+//   let { arrJobs } = props;
+//   console.log(" check child props: ", props);
+//   return (
+//     <>
+//       <div className="job-lists">
+//         {arrJobs.map((item, index) => {
+//           if (item.salary > 1000) {
+//             return (
+//               <div key={item.id}>
+//                 {item.title}-{item.salary}$
+//               </div>
+//             );
+//           }
+//         })}
+//       </div>
+//     </>
+//   );
+// };
 class ChildComponent extends React.Component {
   state = {
-    firstName: "",
-    lastName: "",
+    showJobs: false,
   };
-
-  handleChangeFirstName = (event) => {
+  handleShowHide = () => {
     this.setState({
-      firstName: event.target.value,
+      showJobs: !this.state.showJobs,
     });
   };
-
-  handleChangeLastName = (event) => {
-    this.setState({
-      lastName: event.target.value,
-    });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("check data input: ", this.state);
-  };
-
   render() {
-    console.log(this.props);
-    // let name = this.props.name;
-    // let age = this.props.age;
     let { arrJobs } = this.props;
+    let { showJobs } = this.state;
+    let check = showJobs === true ? "showJobs =true" : "showJobs=false";
+    console.log(">>check condition: ", check);
     return (
       <>
-        <div className="job-lists">
-          {arrJobs.map((item, index) => {
-            return (
-              <div key={item.id}>
-                {item.title}-{item.salary}
-              </div>
-            );
-          })}
-        </div>
+        {showJobs === false ? (
+          <div>
+            <button onClick={() => this.handleShowHide()}>Show</button>
+          </div>
+        ) : (
+          <>
+            <div className="job-lists">
+              {arrJobs.map((item, index) => {
+                return (
+                  <div key={item.id}>
+                    {item.title} - {item.salary}$
+                  </div>
+                );
+              })}
+            </div>
+            <div>
+              <button onClick={() => this.handleShowHide()}>Hide</button>
+            </div>
+          </>
+        )}
       </>
     );
   }
 }
+
 export default ChildComponent;

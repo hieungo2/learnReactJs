@@ -7,9 +7,9 @@ class UserComponent extends React.Component {
     firstName: "",
     lastName: "",
     arrJobs: [
-      { id: "job1", title: "fresher", salary: "500$" },
-      { id: "job2", title: "fresher1", salary: "2300$" },
-      { id: "job3", title: "fresher2", salary: "5000$" },
+      { id: "job1", title: "fresher", salary: "500" },
+      { id: "job2", title: "fresher1", salary: "2300" },
+      { id: "job3", title: "fresher2", salary: "5000" },
     ],
   };
   handleChangeFirstName = (event) => {
