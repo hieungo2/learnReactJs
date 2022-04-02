@@ -2,6 +2,7 @@ import React from "react";
 import "./ListToDo.scss";
 import AddTodo from "./AddTodo";
 import { toast } from "react-toastify";
+import { confirm } from "react-confirm-box";
 class ListTodo extends React.Component {
   state = {
     listToDo: [
@@ -11,12 +12,22 @@ class ListTodo extends React.Component {
     ],
     editTodo: {},
   };
+
+  optionsWithLabelChange = {
+    closeOnOverlayClick: false,
+    labels: {
+      confirmable: "Confirm",
+      cancellable: "Cancel"
+    }
+  };
+
   addNewTodo = (todo) => {
     this.setState({
       listToDo: [...this.state.listToDo, todo],
     });
     toast.success("Added success!");
   };
+
   handleDeleteTodo = (todo) => {
     let currentTodo = this.state.listToDo;
     currentTodo = currentTodo.filter((item) => item.id !== todo.id);
@@ -25,6 +36,16 @@ class ListTodo extends React.Component {
     });
     toast.success("Successfully delete!");
   };
+
+  confirmDelete = async (todo, options) => {
+    const result = await confirm("Are you sure?", options);
+    if (result) {
+      this.handleDeleteTodo(todo);
+      return;
+    }
+    toast.error("You cancel delete!");
+  }
+
   handleEditTodo = (todo) => {
     let { editTodo, listToDo } = this.state;
     let isEmptyObj = Object.keys(editTodo).length === 0;
@@ -44,10 +65,12 @@ class ListTodo extends React.Component {
 
       return;
     }
+
     this.setState({
       editTodo: todo,
     });
   };
+
   handleOnChangeEditTodo = (event) => {
     let editTodoCopy = { ...this.state.editTodo };
     editTodoCopy.title = event.target.value;
@@ -55,6 +78,7 @@ class ListTodo extends React.Component {
       editTodo: editTodoCopy,
     });
   };
+
   render() {
     let { listToDo, editTodo } = this.state;
     let isEmptyObj = Object.keys(editTodo).length === 0;
@@ -103,7 +127,7 @@ class ListTodo extends React.Component {
                   </button>
                   <button
                     className=" delete"
-                    onClick={() => this.handleDeleteTodo(item)}
+                    onClick={() => this.confirmDelete(item, this.optionsWithLabelChange)}
                   >
                     Delete
                   </button>
